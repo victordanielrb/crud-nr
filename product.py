@@ -1,4 +1,12 @@
 import atualizar
+from pymongo.server_api import ServerApi
+from pymongo import MongoClient
+uri = 'mongodb+srv://root:root@1.ks1qhzy.mongodb.net/'
+
+# Create a new client and connect to the server
+client = MongoClient(uri, server_api=ServerApi('1'))
+global db
+db = client.db
 def delete_produto(nome):
     #Delete
     global db
@@ -15,16 +23,11 @@ def create_produto():
     nome = input("Nome: ")
     preco = input("Preço: ")
     descricao = input("Descrição: ")
-    vendedor = db.vendedor.find_one({"nome":input("Vendedor: ")})
-    if vendedor:
-        print("Vendedor: ",vendedor)
-    else:
-        print("Vendedor não encontrado")
-        vendedor=""
+    
   
     key = 1
     
-    mydoc = { "nome": nome, "preco":preco, "descricao": descricao, "vendedor":vendedor,  }
+    mydoc = { "nome": nome, "preco":preco, "descricao": descricao  }
     x = mycol.insert_one(mydoc)
     print("Documento inserido com ID ",x.inserted_id)
 
@@ -55,9 +58,3 @@ def update_produto(nome):
     newvalues = { "$set": mydoc }
     mycol.update_one(myquery, newvalues)
 
-module = "product" = {
-    create_produto,
-    read_produto,
-    update_produto,
-    delete_produto
-}

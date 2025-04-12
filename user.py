@@ -1,4 +1,12 @@
+from pymongo import MongoClient
+from pymongo.server_api import ServerApi
 import atualizar
+uri = 'mongodb+srv://root:root@1.ks1qhzy.mongodb.net/'
+
+# Create a new client and connect to the server
+client = MongoClient(uri, server_api=ServerApi('1'))
+global db
+db = client.db
 def delete_usuario(nome, sobrenome):
     #Delete
     global db
@@ -71,9 +79,3 @@ def update_usuario(nome):
     newvalues = { "$set": mydoc }
     mycol.update_one(myquery, newvalues)
 
-module = "user" = {
-    create_usuario,
-    read_usuario,
-    update_usuario,
-    delete_usuario
-}

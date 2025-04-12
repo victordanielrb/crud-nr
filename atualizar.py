@@ -1,11 +1,8 @@
 def atualizar(query):
-    
+    print('____________________________________')
     for key,value in query.items():
-        item = input(f"{key} ? \n ")
+        if key != "_id":
+            item = input(f"{key} ? \n ")
         if item != "":
             query[key] = item
     return query
-
-module = "atualizar" = {
-    atualizar
-}
