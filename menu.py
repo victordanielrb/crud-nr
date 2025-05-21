@@ -4,8 +4,6 @@ import product
 import user
 import vendedor
 import compra
-import json
-import hashlib
 
 uri = 'mongodb+srv://root:root@1.ks1qhzy.mongodb.net/'
 client = MongoClient(uri, server_api=ServerApi('1'))

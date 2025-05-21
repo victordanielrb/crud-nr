@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 import atualizar
-uri = 'mongodb+srv://root:root@1.ks1qhzy.mongodb.net/'
+uri = "mongodb+srv://root:root@1.ks1qhzy.mongodb.net/?retryWrites=true&w=majority&appName=1"
 
 # Create a new client and connect to the server
 client = MongoClient(uri, server_api=ServerApi('1'))
@@ -23,12 +23,7 @@ def create_usuario():
     nome = input("Nome: ")
     sobrenome = input("Sobrenome: ")
     cpf = input("CPF: ")
-    favorito = db.produto.find_one({"nome":input("Produto Favorito: ")})
-    if favorito:
-        print("Produto Favorito: ",favorito)
-    else:
-        print("Produto não encontrado")
-        favorito=""
+  
     key = 1
     end = []
     while (key != 'N'):
@@ -46,9 +41,27 @@ def create_usuario():
             "estado": estado,
             "cep": cep
         }
+        key = 1
+        favoritos = []
+        while (key != 'N'):
+            produto = input("Produto favorito: ")
+            if produto:
+                print("Produto adicionado: ",produto)
+                favoritos.append(produto)
+            else:
+                print("Produto não encontrado")
+            
+            
+            key = input("Deseja cadastrar um novo produto favorito (S/N)? ")
+            
+
+        
+
+
+    
         end.append(endereco) #estou inserindo na lista
         key = input("Deseja cadastrar um novo endereço (S/N)? ")
-    mydoc = { "nome": nome, "sobrenome": sobrenome, "cpf": cpf, "favorito":favorito, "end": end }
+    mydoc = { "nome": nome, "sobrenome": sobrenome, "cpf": cpf, "favorito":favoritos, "end": end }
     x = mycol.insert_one(mydoc)
     print("Documento inserido com ID ",x.inserted_id)
 
